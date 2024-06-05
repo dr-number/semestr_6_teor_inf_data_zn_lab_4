@@ -10,9 +10,9 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, "RUS");
-    //SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    //setlocale(LC_ALL, "RUS");
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
 
     map <char, int> bukvi;
     map <int, char> bukvi1;
@@ -43,9 +43,9 @@ int main()
     ofstream fout(pathout);
     ofstream fout2(pathout2);
 
-    fin.open(pathin);
-    fout.open(pathout);
-    fout2.open(pathout2);
+    //fin.open(pathin);
+    //fout.open(pathout);
+    //fout2.open(pathout2);
 
     cout << "Исходный текст : \n";
     vector <char> t_in;
@@ -115,7 +115,7 @@ int main()
         bool b = t_out[i] <= 'Я';
         bool c = t_out[i] == 'Ё';
         if ((a && b) || c) {
-            wchar_t ind = bukvi1[(bukvi[t_out[i]] - bukvi[key[j]] + 33) % 33];
+            char ind = bukvi1[(bukvi[t_out[i]] - bukvi[key[j]] + 33) % 33];
             t_out2.push_back(ind);
             if (j == kol_el - 1) {
                 j = 0;
