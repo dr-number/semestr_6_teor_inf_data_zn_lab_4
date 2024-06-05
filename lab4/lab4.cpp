@@ -10,26 +10,18 @@ using namespace std;
 
 int main()
 {
-    //setlocale(LC_ALL, "RUS");
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    map <char, int> bukvi;
-    map <int, char> bukvi1;
+    // Карта символов
+    map<char, int> bukvi;
+    map<int, char> bukvi1;
+    string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-    for (int i = 0; i < 6; i++) {
-        bukvi[char(int('А') + i)] = i;
-        bukvi1[i] = char(int('А') + i);
+    for (int i = 0; i < alphabet.size(); i++) {
+        bukvi[alphabet[i]] = i;
+        bukvi1[i] = alphabet[i];
     }
-    bukvi['Ё'] = 6;
-    bukvi1[6] = 'Ё';
-    for (int i = 7; i < 33; i++) {
-        bukvi[char(int('Ж') + i - 7)] = i;
-        bukvi1[i] = char(int('Ж') + i - 7);
-    }
-    //for (auto b : bukvi) {
-    //    cout << b.first << " " << b.second << endl;
-    //}
 
     const string PATH = "D:\\СИБСТРИН ИНФА\\семестр6\\2324, Теория информации, данные, знания, 12 (экзамен, заоч. (5, 6 сем.) (310а-з, 310з гр.) )\\Лабораторная работа №4\\";
     const string INPUT = "Вариант 17_.txt";
@@ -38,28 +30,27 @@ int main()
     string pathout = PATH + INPUT + "_output.txt";
     string pathout2 = PATH + INPUT + "_recovery.txt";
 
-    // Открытие файлов
+    // Открытие файлов с установкой кодировки UTF-8
     ifstream fin(pathin);
     ofstream fout(pathout);
     ofstream fout2(pathout2);
 
-    //fin.open(pathin);
-    //fout.open(pathout);
-    //fout2.open(pathout2);
+    if (!fin.is_open() || !fout.is_open() || !fout2.is_open()) {
+        cerr << "Не удалось открыть файл" << endl;
+        return 1;
+    }
 
-    cout << "Исходный текст : \n";
-    vector <char> t_in;
+    cout << "Исходный текст:\n";
+    vector<char> t_in;
     char ch;
 
-    while (fin.get(ch))
-    {
+    while (fin.get(ch)) {
         t_in.push_back(ch);
         cout << ch;
     }
 
-    cout << "Введите ключевое слово (гамму)  ";
+    cout << "\nВведите ключевое слово (гамму): ";
     string str1;
-
     cin >> str1;
 
     map <int, char> key;
@@ -93,8 +84,8 @@ int main()
 
     }
 
+
     cout << "\nЗашифрованный текст:\n";
-    // Вывод результатов
     for (int i = 0; i < t_out.size(); i++) {
         cout << t_out[i];
         fout << t_out[i];
@@ -105,18 +96,12 @@ int main()
 
     cout << "\nВновь расшифрованный текст:\n";
     for (int i = 0; i < t_out.size(); i++) {
-        bool a = t_out[i] >= 'А';
-        bool b = t_out[i] <= 'Я';
-        bool c = t_out[i] == 'Ё';
-        if ((a && b) || c) {
-            char ind = bukvi1[(bukvi[t_out[i]] - bukvi[key[j]] + 33) % 33];
+        bool a = (t_out[i] >= 'А' && t_out[i] <= 'Я');
+        bool b = (t_out[i] == 'Ё');
+        if (a || b) {
+            char ind = bukvi1[(bukvi[t_out[i]] - bukvi[str1[j]] + 33) % 33];
             t_out2.push_back(ind);
-            if (j == kol_el - 1) {
-                j = 0;
-            }
-            else {
-                j++;
-            }
+            j = (j + 1) % kol_el;
         }
         else {
             t_out2.push_back(t_out[i]);
@@ -128,4 +113,5 @@ int main()
         fout2 << t_out2[i];
     }
 
+    return 0;
 }
