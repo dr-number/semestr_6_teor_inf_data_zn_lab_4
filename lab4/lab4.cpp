@@ -93,12 +93,6 @@ int main()
 
     }
 
-    for (int i = 0; i < t_out.size(); i++)
-    {
-        cout << t_out[i];
-        fout << t_out[i];
-    }
-
     cout << "\nЗашифрованный текст:\n";
     // Вывод результатов
     for (int i = 0; i < t_out.size(); i++) {
@@ -125,7 +119,7 @@ int main()
             }
         }
         else {
-            t_out2.push_back(t_out2[i]);
+            t_out2.push_back(t_out[i]);
         }
     }
 
