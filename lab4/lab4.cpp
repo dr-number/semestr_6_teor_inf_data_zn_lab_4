@@ -125,7 +125,7 @@ int main()
             }
         }
         else {
-            t_out2.push_back(t_out[i]);
+            t_out2.push_back(t_out2[i]);
         }
     }
 
