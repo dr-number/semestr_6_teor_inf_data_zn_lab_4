@@ -13,15 +13,22 @@ int main()
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    // Карта символов
-    map<char, int> bukvi;
-    map<int, char> bukvi1;
-    string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    map <char, int> bukvi;
+    map <int, char> bukvi1;
 
-    for (int i = 0; i < alphabet.size(); i++) {
-        bukvi[alphabet[i]] = i;
-        bukvi1[i] = alphabet[i];
+    for (int i = 0; i < 6; i++) {
+        bukvi[char(int('А') + i)] = i;
+        bukvi1[i] = char(int('А') + i);
     }
+    bukvi['Ё'] = 6;
+    bukvi1[6] = 'Ё';
+    for (int i = 7; i < 33; i++) {
+        bukvi[char(int('Ж') + i - 7)] = i;
+        bukvi1[i] = char(int('Ж') + i - 7);
+    }
+    //for (auto b : bukvi) {
+    //    cout << b.first << " " << b.second << endl;
+    //}
 
     const string PATH = "D:\\СИБСТРИН ИНФА\\семестр6\\2324, Теория информации, данные, знания, 12 (экзамен, заоч. (5, 6 сем.) (310а-з, 310з гр.) )\\Лабораторная работа №4\\";
     const string INPUT = "Вариант 17_.txt";
