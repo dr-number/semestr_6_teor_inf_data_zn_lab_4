@@ -4,14 +4,14 @@
 #include <fstream>
 #include <vector>
 #include <windows.h>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    //    setlocale(LC_ALL, "RUS");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
     map <char, int> bukvi;
     map <int, char> bukvi1;
@@ -37,15 +37,12 @@ int main()
     string pathout = PATH + INPUT + "_output.txt";
     string pathout2 = PATH + INPUT + "_recovery.txt";
 
-    // Открытие файлов с установкой кодировки UTF-8
-    ifstream fin(pathin);
-    ofstream fout(pathout);
+    ifstream fin;
+    ofstream fout;
     ofstream fout2(pathout2);
 
-    if (!fin.is_open() || !fout.is_open() || !fout2.is_open()) {
-        cerr << "Не удалось открыть файл" << endl;
-        return 1;
-    }
+    fin.open(pathin);
+    fout.open(pathout);
 
     cout << "Исходный текст:\n";
     vector<char> t_in;
@@ -56,8 +53,14 @@ int main()
         cout << ch;
     }
 
-    cout << "\nВведите ключевое слово (гамму): ";
+    while (fin.get(ch))
+    {
+        t_in.push_back(ch);
+    }
+
+    cout << "Введите ключевое слово (гамму)  ";
     string str1;
+
     cin >> str1;
 
     map <int, char> key;
@@ -72,6 +75,7 @@ int main()
 
     int j = 0;
 
+    cout << "\nЗашифрованный текст:\n";
     for (int i = 0; i < t_in.size(); i++)
     {
         bool a = t_in[i] >= 'А';
@@ -91,11 +95,10 @@ int main()
 
     }
 
-
-    cout << "\nЗашифрованный текст:\n";
-    for (int i = 0; i < t_out.size(); i++) {
-        cout << t_out[i];
+    for (int i = 0; i < t_out.size(); i++)
+    {
         fout << t_out[i];
+        cout << t_out[i];
     }
 
     vector<char> t_out2;
@@ -120,5 +123,4 @@ int main()
         fout2 << t_out2[i];
     }
 
-    return 0;
 }
