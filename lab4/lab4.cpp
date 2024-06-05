@@ -10,9 +10,9 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, "ru_RU.UTF-8");
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    setlocale(LC_ALL, "RUS");
+    //SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
     map <char, int> bukvi;
     map <int, char> bukvi1;
@@ -99,17 +99,17 @@ int main()
         fout << t_out[i];
     }
 
-    cout << L"\nЗашифрованный текст:\n";
+    cout << "\nЗашифрованный текст:\n";
     // Вывод результатов
     for (int i = 0; i < t_out.size(); i++) {
         cout << t_out[i];
         fout << t_out[i];
     }
 
-    vector<wchar_t> t_out2;
+    vector<char> t_out2;
     j = 0;
 
-    cout << L"\nВновь расшифрованный текст:\n";
+    cout << "\nВновь расшифрованный текст:\n";
     for (int i = 0; i < t_out.size(); i++) {
         bool a = t_out[i] >= 'А';
         bool b = t_out[i] <= 'Я';
